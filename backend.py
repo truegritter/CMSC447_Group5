@@ -1,4 +1,5 @@
 import requests
+import uvicorn
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
@@ -31,6 +32,16 @@ async def random():
     url = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc"
     response = requests.get(url, headers=HEADERS)
     return response.json()
+
+#Route /test
+@app.get("/test")
+async def test():
+    return {"message": "Hello World"}
+
+
+ # at last, the bottom of the file/module
+if __name__ == "__main__":
+    uvicorn.run(app, host="127.0.0.1", port=8000)
 
 #Needed functions for the backend
 #https://developer.themoviedb.org/reference/intro/getting-started
