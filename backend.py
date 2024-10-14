@@ -1,53 +1,53 @@
 import requests
-import uvicorn
-from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
+from flask import Flask, jsonify, request, send_from_directory
 
-app = FastAPI()
+app = Flask(__name__, static_folder='front-end')
 
 HEADERS = {
     "accept": "application/json",
     "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjZDE1YWRiZjAzM2JiZTBmZjVkM2E4YTk5M2Y3NTgwNSIsIm5iZiI6MTcyODA3MDM2NC4xNjE3NjIsInN1YiI6IjY3MDA0MGU4YzlhMTBkNDZlYTdjZTI2NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ALw111-0iTaOBTnDpnOlAWVpX7KeXeYot0hfrX3lY_E"
 }
 
-app.mount("/", StaticFiles(directory="front-end", html=True), name="front-end")
+# Serve static files for the front-end
+@app.route('/')
+@app.route('/<path:path>')
+def serve_static_files(path='index.html'):
+    return send_from_directory(app.static_folder, path)
 
-#Route /genre-search?genre={int} (See list below)
-@app.get("/genre-search")
-async def genre_search(genre: int):
-    url = f"https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&with_genres={genre}"
+# Route /genre-search?genre={int}
+@app.route("/genre-search", methods=["GET"])
+def genre_search():
+    genre = request.args.get('genre')
+    url = f"https://api.themoviedb.org/3/discover/movie?include_adult=true&include_video=false&language=en-US&sort_by=popularity.desc&with_genres={genre}"
     response = requests.get(url, headers=HEADERS)
-    return response.json()
+    return jsonify(response.json())
 
-#Route /title-search?title={str}
-@app.get("/title-search")
-async def title_search(title: str):
-    url = f"https://api.themoviedb.org/3/search/movie?include_adult=true&query={title}"
+# Route /title-search?title={str}
+@app.route("/title-search", methods=["GET"])
+def title_search():
+    title = request.args.get('title')
+    url = f"https://api.themoviedb.org/3/search/movie?include_adult=true&original_language=en&query={title}"
     response = requests.get(url, headers=HEADERS)
-    return response.json()
+    return jsonify(response.json())
 
-#Route /random
-@app.get("/random")
-async def random():
-    url = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc"
+# Route /random
+@app.route("/random", methods=["GET"])
+def random():
+    url = f"https://api.themoviedb.org/3/discover/movie?include_adult=true&include_video=false&language=en-US&sort_by=popularity.desc"
     response = requests.get(url, headers=HEADERS)
-    return response.json()
+    return jsonify(response.json())
 
-#Route /test
-@app.get("/test")
-async def test():
-    return {"message": "Hello World"}
+# Route /test
+@app.route("/test", methods=["GET"])
+def test():
+    return jsonify({"message": "Hello World"})
 
-
- # at last, the bottom of the file/module
+# Run the app
 if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    app.run(host="127.0.0.1", port=8000)
 
 #Needed functions for the backend
 #https://developer.themoviedb.org/reference/intro/getting-started
-
-#FastAPI Docs
-#https://fastapi.tiangolo.com/
 
 #Title Search
 #Genre Search
