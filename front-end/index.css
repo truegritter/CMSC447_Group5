@@ -1,0 +1,74 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f0f0;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+h1 {
+    font-size: 3em; /* Increase the size of the website name */
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size:  2em; 
+    margin-bottom: 40px;
+}
+
+.search-bar {
+    margin-bottom: 20px;
+}
+
+.search-bar input {
+    width: 400px; /* Increase the width of the search bar */
+    height: 40px; /* Increase the height of the search bar */
+    font-size: 18px; /* Increase the font size */
+    padding: 5px 10px;
+}
+
+.search-bar button {
+    height: 54px;
+    font-size: 18px; /* Increase the button size to match the input */
+    padding: 5px 15px;
+}
+
+#randomButton {
+    margin-bottom: -5px;
+    width: 200px; /* Increase the width of the random button */
+    height: 50px;  /* Increase the height of the random button */
+    font-size: 20px; /* Increase the font size */
+    background-color: #ddd;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#randomButton:hover {
+    background-color: #bbb;
+}
+
+.genre-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 0.5fr); /* Two columns */
+    grid-gap: 20px; /* Reduce space between columns */
+    justify-items: center;
+}
+
+.genre-buttons button {
+    width: 225px; /* Slightly increased width */
+    height: 300px; /* Height to make the button more rectangular */
+    font-size: 30px;
+    cursor: pointer;
+    background-color: #ddd;
+    border: none;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    line-height: 1.5; /* Adjust the vertical centering of text */
+}
+
+button:hover {
+    background-color: #bbb;
+}
