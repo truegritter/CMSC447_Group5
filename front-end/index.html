@@ -3,39 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Recommender</title>
+    <title>Film Finder</title>
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
     <div class="container">
-        <h1>Movie Recommender</h1>
+        <h1>Film Finder</h1>
         <div class="search-bar">
             <input type="text" id="search" placeholder="Search">
             <button onclick="searchMovie()">Search</button>
         </div>
         <button id="randomButton" onclick="getRandomMovie()">Random Movie</button>
         <h2>Genres</h2>
-        <div class="genre-buttons">
-            <button onclick="getMoviesByGenre('action')">Action</button>
-            <button onclick="getMoviesByGenre('adventure')">Adventure</button>
-            <button onclick="getMoviesByGenre('animation')">Animation</button>
-            <button onclick="getMoviesByGenre('comedy')">Comedy</button>
-            <button onclick="getMoviesByGenre('crime')">Crime</button>
-            <button onclick="getMoviesByGenre('comedy')">Comedy</button>
-            <button onclick="getMoviesByGenre('documentary')">Documentary</button>
-            <button onclick="getMoviesByGenre('drama')">Drama</button>
-            <button onclick="getMoviesByGenre('family')">Family</button>
-            <button onclick="getMoviesByGenre('fantasy')">Fantasy</button>
-            <button onclick="getMoviesByGenre('history')">History</button>
-            <button onclick="getMoviesByGenre('horror')">Horror</button>
-            <button onclick="getMoviesByGenre('music')">Music</button>
-            <button onclick="getMoviesByGenre('mystery')">Mystery</button>
-            <button onclick="getMoviesByGenre('romance')">Romance</button>
-            <button onclick="getMoviesByGenre('science fiction')">Science Fiction</button>
-            <button onclick="getMoviesByGenre('thriller')">Thriller</button>
-            <button onclick="getMoviesByGenre('war')">War</button>
-            <button onclick="getMoviesByGenre('western')">Western</button>
+        <div class="genre-buttons" id="genre-buttons">
+            <!-- Genre buttons will be dynamically generated here -->
         </div>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>

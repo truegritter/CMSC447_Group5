@@ -1,42 +1,60 @@
+const genres = [
+    { "id": 28, "name": "Action" },
+    { "id": 12, "name": "Adventure" },
+    { "id": 16, "name": "Animation" },
+    { "id": 35, "name": "Comedy" },
+    { "id": 80, "name": "Crime" },
+    { "id": 99, "name": "Documentary" },
+    { "id": 18, "name": "Drama" },
+    { "id": 10751, "name": "Family" },
+    { "id": 14, "name": "Fantasy" },
+    { "id": 36, "name": "History" },
+    { "id": 27, "name": "Horror" },
+    { "id": 10402, "name": "Music" },
+    { "id": 9648, "name": "Mystery" },
+    { "id": 10749, "name": "Romance" },
+    { "id": 878, "name": "Science Fiction" },
+    { "id": 10770, "name": "TV Movie" },
+    { "id": 53, "name": "Thriller" },
+    { "id": 10752, "name": "War" },
+    { "id": 37, "name": "Western" }
+];
+
 document.addEventListener('DOMContentLoaded', () => {
-    const resultsDiv = document.getElementById('results');
-
-    document.getElementById('random').addEventListener('click', () => {
-        fetch('/random')
-            .then(response => response.json())
-            .then(data => displayResults(data))
-            .catch(error => console.error('Error:', error));
+    const genreButtonsContainer = document.getElementById('genre-buttons');
+    genres.forEach(genre => {
+        const button = document.createElement('button');
+        button.textContent = genre.name;
+        button.onclick = () => getMoviesByGenre(genre.id);
+        genreButtonsContainer.appendChild(button);
     });
-
-    document.getElementById('title-search').addEventListener('click', () => {
-        fetch('/title-search?title=spider')
-            .then(response => response.json())
-            .then(data => displayResults(data))
-            .catch(error => console.error('Error:', error));
-    });
-
-    document.getElementById('genre-search').addEventListener('click', () => {
-        fetch('/genre-search?genre=28')
-            .then(response => response.json())
-            .then(data => displayResults(data))
-            .catch(error => console.error('Error:', error));
-    });
-
-    function displayResults(data) {
-        resultsDiv.innerHTML = '';
-        if (data.results && data.results.length > 0) {
-            data.results.forEach(movie => {
-                const movieDiv = document.createElement('div');
-                movieDiv.classList.add('movie');
-                movieDiv.innerHTML = `
-                    <h2>${movie.title}</h2>
-                    <p>${movie.overview}</p>
-                    <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title} poster">
-                `;
-                resultsDiv.appendChild(movieDiv);
-            });
-        } else {
-            resultsDiv.innerHTML = '<p>No results found.</p>';
-        }
-    }
 });
+
+function getRandomMovie() {
+    const randomGenre = genres[Math.floor(Math.random() * genres.length)];
+    fetch(`/genre-search?genre=${randomGenre.id}`)
+        .then(response => response.json())
+        .then(data => {
+            localStorage.setItem('movieResults', JSON.stringify(data.results));
+            window.location.href = 'result.html';
+        });
+}
+
+function getMoviesByGenre(genreId) {
+    fetch(`/genre-search?genre=${genreId}`)
+        .then(response => response.json())
+        .then(data => {
+            localStorage.setItem('movieResults', JSON.stringify(data.results));
+            window.location.href = 'result.html';
+        });
+}
+
+function searchMovie() {
+    const query = document.getElementById('search').value;
+    fetch(`/title-search?title=${query}`)
+        .then(response => response.json())
+        .then(data => {
+            localStorage.setItem('movieResults', JSON.stringify(data.results));
+            window.location.href = 'result.html';
+        });
+}
