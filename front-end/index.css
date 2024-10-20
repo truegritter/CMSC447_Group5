@@ -27,12 +27,14 @@ h2 {
     height: 40px; /* Increase the height of the search bar */
     font-size: 18px; /* Increase the font size */
     padding: 5px 10px;
+    border-radius: 10px; /* Rounded corners */
 }
 
 .search-bar button {
     height: 54px;
     font-size: 18px; /* Increase the button size to match the input */
-    padding: 5px 15px;
+    padding: 5px 20px; /* Size of button */
+    border-radius: 10px; /* Rounded corners */
 }
 
 #randomButton {
@@ -52,21 +54,24 @@ h2 {
 
 .genre-buttons {
     display: grid;
-    grid-template-columns: repeat(2, 0.5fr); /* Two columns */
+    grid-template-columns: repeat(2, 0.5fr);
+    max-width: 1000px;
+    margin: 0 auto;
     grid-gap: 20px; /* Reduce space between columns */
     justify-items: center;
 }
 
 .genre-buttons button {
-    width: 225px; /* Slightly increased width */
-    height: 300px; /* Height to make the button more rectangular */
-    font-size: 30px;
+    width: 175px; /* Reduced from 225px */
+    height: 250px; /* Reduced from 300px */
+    font-size: 25px; /* Reduced from 30px */
     cursor: pointer;
     background-color: #ddd;
     border: none;
     transition: background-color 0.3s ease;
     text-align: center;
-    line-height: 1.5; /* Adjust the vertical centering of text */
+    line-height: 1.5; /* Reduced from 1.5 */
+    
 }
 
 button:hover {
