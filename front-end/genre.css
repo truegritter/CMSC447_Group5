@@ -1,0 +1,59 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f0f0;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+h1 {
+    font-size: 3em; /* Increase the size of the website name */
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 2em; 
+    margin-bottom: 40px;
+}
+
+h3 {
+    font-size: 2em;
+    margin-left: 20px; /* Space between title and poster */
+    white-space: pre-wrap; /* Preserve whitespace */
+    overflow-wrap: break-word; /* Break long words */
+    max-width: 250px; /* Limit width for better wrapping */
+}
+
+.movie {
+    display: grid;
+    grid-template-columns: repeat(2, 0.5fr);
+    max-width: 500px;
+    margin: 0 auto;
+    margin-bottom: 50px;
+    justify-items: center;
+}
+
+.poster-container {
+    width: 175px; /* Fixed width of the poster */
+    height: 250px; /* Fixed height of the poster */
+}
+
+button {
+    background: transparent; /* Remove default button background */
+    border: none; /* Remove default button border */
+    cursor: pointer; /* Change cursor to pointer */
+    padding: 0; /* Remove default button padding */
+}
+
+button img {
+    width: 175px; /* Width of the poster image */
+    height: 250px; /* Height of the poster image */
+    border-radius: 10px; /* Rounded corners */
+    transition: transform 0.3s ease; /* Transition effect for hover */
+}
+
+button:hover img {
+    transform: scale(1.05); /* Slight zoom on hover */
+}
