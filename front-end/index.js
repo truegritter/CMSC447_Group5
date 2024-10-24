@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     genres.forEach(genre => {
         const button = document.createElement('button');
         button.textContent = genre.name;
-        button.onclick = () => getMoviesByGenre(genre.id);
+        button.onclick = () => getMoviesByGenre(genre.id, genre.name);
         genreButtonsContainer.appendChild(button);
     });
 });
@@ -35,17 +35,22 @@ function getRandomMovie() {
         .then(response => response.json())
         .then(data => {
             localStorage.setItem('movieResults', JSON.stringify(data.results));
-            window.location.href = 'genre.html';
+            window.location.href = 'confirmation.html';
         });
 }
 
-function getMoviesByGenre(genreId) {
+function getMoviesByGenre(genreId, genreName) {
     fetch(`/genre-search?genre=${genreId}`)
         .then(response => response.json())
         .then(data => {
+            // Store the movie results and the selected genre in localStorage
             localStorage.setItem('movieResults', JSON.stringify(data.results));
-            window.location.href = 'genre.html';
-        });
+            localStorage.setItem('selectedGenre', genreName); // Save genre name
+            localStorage.setItem('currentPage', page = 1); // Save current page
+            localStorage.setItem('genreId', genreId); // Save genreId for pagination
+            window.location.href = 'genre.html'; // Navigate to the genre page
+        })
+        .catch(error => console.error('Error fetching movies:', error));
 }
 
 function searchMovie() {

@@ -2,6 +2,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultsContainer = document.getElementById('Movie Details');
     const movieResults = JSON.parse(localStorage.getItem('movieResults'));
 
+    const genreHeading = document.getElementById('genreName');
+    const selectedGenre = localStorage.getItem('selectedGenre');
+    
+    if (selectedGenre) {
+        genreHeading.textContent = `${selectedGenre} Movie Results`;
+    }
+
     if (movieResults) {
         const movieGrid = document.createElement('div');
         movieGrid.classList.add('movie'); // Add a grid container
@@ -33,4 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         resultsContainer.textContent = 'No results found.';
     }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const movieButton = document.getElementById("movie-title")
 });
