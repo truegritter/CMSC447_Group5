@@ -31,8 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function getRandomMovie() {
-    const randomGenre = genres[Math.floor(Math.random() * genres.length)];
-    fetch(`/genre-search?genre=${randomGenre.id}`)
+    fetch(`/random`)
         .then(response => response.json())
         .then(data => {
             localStorage.setItem('movieResults', JSON.stringify(data.results));

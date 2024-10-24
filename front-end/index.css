@@ -43,7 +43,8 @@ h2 {
     height: 50px;  /* Increase the height of the random button */
     font-size: 20px; /* Increase the font size */
     background-color: #ddd;
-    border: none;
+    border: 2px solid #ccc;
+    border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
@@ -54,10 +55,10 @@ h2 {
 
 .genre-buttons {
     display: grid;
-    grid-template-columns: repeat(2, 0.5fr);
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 30px;
     max-width: 1000px;
     margin: 0 auto;
-    grid-gap: 20px; /* Reduce space between columns */
     justify-items: center;
 }
 
@@ -67,11 +68,16 @@ h2 {
     font-size: 25px; /* Reduced from 30px */
     cursor: pointer;
     background-color: #ddd;
-    border: none;
-    transition: background-color 0.3s ease;
+    border: 2px solid #ccc; /* Added border */
+    border-radius: 10px; /* Optional: rounded corners for the border */
+    transition: background-color 0.3s ease, border-color 0.3s ease; /* Added transition for border color */
     text-align: center;
     line-height: 1.5; /* Reduced from 1.5 */
-    
+}
+
+.genre-buttons button:hover {
+    background-color: #bbb;
+    border-color: #999; /* Change border color on hover */
 }
 
 button:hover {
