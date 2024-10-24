@@ -3,26 +3,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const movieResults = JSON.parse(localStorage.getItem('movieResults'));
 
     if (movieResults) {
-        movieResults.forEach(movie => {
-            const movieElement = document.createElement('div');
-            movieElement.classList.add('movie');
+        const movieGrid = document.createElement('div');
+        movieGrid.classList.add('movie'); // Add a grid container
 
-            const posterContainer = document.createElement('div'); // Container for poster
+        movieResults.forEach(movie => {
+            // Create poster container
+            const posterContainer = document.createElement('div');
             posterContainer.classList.add('poster-container');
 
-            const button = document.createElement('button'); // Create a button for the poster
+            const button = document.createElement('button');
             const poster = document.createElement('img');
             poster.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
-            button.appendChild(poster); // Set the image as a child of the button
-            posterContainer.appendChild(button); // Append button to the poster container
-            movieElement.appendChild(posterContainer); // Add poster container to movie element
+            button.appendChild(poster);
+            posterContainer.appendChild(button);
 
-            const title = document.createElement('h3');
+            // Create title container
+            const titleContainer = document.createElement('div');
+            titleContainer.classList.add('movie-title');
+            const title = document.createElement('movie-title');
             title.textContent = movie.title;
-            movieElement.appendChild(title); // Add title to movie element
+            titleContainer.appendChild(title);
 
-            resultsContainer.appendChild(movieElement); // Append movie element to results container
+            // Append poster and title in alternating columns
+            movieGrid.appendChild(posterContainer); // Poster goes in columns 1 and 3
+            movieGrid.appendChild(titleContainer);  // Title goes in columns 2 and 4
         });
+
+        resultsContainer.appendChild(movieGrid); // Add the movie grid to the results container
     } else {
         resultsContainer.textContent = 'No results found.';
     }

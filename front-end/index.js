@@ -55,6 +55,6 @@ function searchMovie() {
         .then(response => response.json())
         .then(data => {
             localStorage.setItem('movieResults', JSON.stringify(data.results));
-            window.location.href = 'genre.html';
+            window.location.href = 'confirmation.html';
         });
 }

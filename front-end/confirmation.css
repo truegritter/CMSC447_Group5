@@ -18,29 +18,26 @@ h2 {
     margin-bottom: 40px;
 }
 
-.movie-title{
+h3 {
     font-size: 2em;
-    text-align: center; /* Space between title and poster */
+    margin-left: 20px; /* Space between title and poster */
     white-space: pre-wrap; /* Preserve whitespace */
     overflow-wrap: break-word; /* Break long words */
     max-width: 250px; /* Limit width for better wrapping */
-    margin-top: 75px;
 }
 
 .movie {
     display: grid;
-    grid-template-columns: repeat(4, 0.5fr);
-    max-width: 1000px;
+    grid-template-columns: repeat(2, 0.5fr);
+    max-width: 500px;
     margin: 0 auto;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
     justify-items: center;
 }
 
 .poster-container {
     width: 175px; /* Fixed width of the poster */
     height: 250px; /* Fixed height of the poster */
-    text-align: center;
-    margin-bottom: 50px;
 }
 
 button {
