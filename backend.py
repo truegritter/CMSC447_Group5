@@ -23,7 +23,8 @@ def serve_static_files(path='index.html'):
 @app.route("/genre-search", methods=["GET"])
 def genre_search():
     genre = request.args.get('genre')
-    url = f"https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&sort_by=popularity.desc&with_genres={genre}"
+    page = request.args.get('currentPage', 1)
+    url = f"https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&sort_by=popularity.desc&with_genres={genre}&page={page}"
     response = requests.get(url, headers=HEADERS)
     return jsonify(response.json())
 
@@ -47,7 +48,7 @@ def randomMovie():
 
 # Run the app
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=8000)
+    app.run(host="127.0.0.1", port=8080)
 
 #Needed functions for the backend
 #https://developer.themoviedb.org/reference/intro/getting-started
