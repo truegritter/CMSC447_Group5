@@ -46,7 +46,7 @@ function getMoviesByGenre(genreId, genreName) {
             // Store the movie results and the selected genre in localStorage
             localStorage.setItem('movieResults', JSON.stringify(data.results));
             localStorage.setItem('selectedGenre', genreName); // Save genre name
-            localStorage.setItem('currentPage', page = 1); // Save current page
+            localStorage.setItem('currentPage', 1); // Save current page
             localStorage.setItem('genreId', genreId); // Save genreId for pagination
             window.location.href = 'genre.html'; // Navigate to the genre page
         })

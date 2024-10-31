@@ -27,6 +27,7 @@ h2 {
     margin-top: 75px;
 }
 
+
 .movie {
     display: grid;
     grid-template-columns: repeat(4, 0.5fr);
@@ -59,4 +60,27 @@ button img {
 
 button:hover img {
     transform: scale(1.05); /* Slight zoom on hover */
+}
+
+.pagination-container {
+    display: flex;
+    align-items: center; /* Align items in the center vertically */
+    justify-content: center; /* Center the pagination controls */
+    margin-top: 20px; /* Add some margin at the top for separation */
+}
+
+.previous-page, .next-page {
+    margin: 0 10px; /* Add horizontal spacing between buttons */
+    padding: 10px 20px; /* Add padding for better button size */
+    background-color: #ddd;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px; /* Adjust font size as needed */
+    transition: background-color 0.3s ease;
+    cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+.page-number-display {
+    margin: 0 15px; /* Add spacing around the page number */
+    font-size: 16px; /* Adjust font size as needed */
 }
