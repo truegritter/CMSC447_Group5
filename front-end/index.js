@@ -35,7 +35,7 @@ function getRandomMovie() {
         .then(response => response.json())
         .then(data => {
             localStorage.setItem('movieResults', JSON.stringify(data.results));
-            window.location.href = 'confirmation.html';
+            window.location.href = 'result.html';
         });
 }
 

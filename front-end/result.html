@@ -3,16 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Results</title>
-    <link rel="stylesheet" href="index.css">
+    <title>Movie Details</title>
+    <link rel="stylesheet" href="result.css">
 </head>
 <body>
-    <h1><a href="index.html">New Search</a></h1>
     <div class="container">
-        <h1>Results</h1>
-        <div id="results">
-            <!-- Results will be displayed here -->
+        <h1><a href="index.html">New Search</a></h1>
+        <div class="movie-main" id="movie-main">
+            <!-- Main movie details will be dynamically generated here -->
         </div>
+        <div class="related-movies" id="related-movies">
+            <div class="related-movies-container">
+                <!-- Related movie posters will be dynamically generated here -->
+            </div>
+        </div>        
     </div>
     <script src="result.js"></script>
 </body>

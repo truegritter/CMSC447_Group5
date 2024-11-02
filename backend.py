@@ -46,6 +46,14 @@ def randomMovie():
     response = requests.get(url, headers=HEADERS)
     return jsonify(response.json())
 
+@app.route("/movie-details", methods=["GET"])
+def movie_details(): 
+    movie_id = request.args.get('movie_id')
+    url = f"https://api.themoviedb.org/3/movie/{movie_id}?language=en-US"
+    response = requests.get(url, headers=HEADERS)
+    return jsonify(response.json())
+
+
 # Run the app
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=8080)

@@ -25,7 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const poster = document.createElement('img');
             poster.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
             button.appendChild(poster);
-            posterContainer.onclick = () => resultPage(movie.genreId, movie.genreName, movie.movieId, movie.movie); // Use the movie ID for redirection
+            posterContainer.onclick = () => {
+                resultPage(movie.id, movie.title);
+            };
 
             posterContainer.appendChild(button);
 
@@ -92,9 +94,20 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Fetch the results page
-function resultPage(genreId, genreName, movieId, movie) {
-    window.location.href = 'index.html';
+function resultPage(movieId, movieTitle) {
+    console.log(movieTitle);
+    console.log(movieId);
+
+    fetch(`/movie-details?movie_id=${movieId}`) 
+        .then(response => response.json())
+        .then(data => {
+            localStorage.setItem('selectedMovieDetails', JSON.stringify(data));
+            localStorage.setItem('movieTitle', movieTitle);
+            window.location.href = 'result.html';
+        })
+        .catch(error => console.error('Error fetching result page:', error));
 }
+
 
 // Fetch the previous page of movies
 function fetchPreviousPage(genreId, genreName, page) {
