@@ -28,6 +28,15 @@ document.addEventListener('DOMContentLoaded', () => {
         button.onclick = () => getMoviesByGenre(genre.id, genre.name);
         genreButtonsContainer.appendChild(button);
     });
+    
+    // Add event listener for the Enter key in the search input
+    const searchInput = document.getElementById('search');
+    searchInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') { // Check if the pressed key is Enter
+            event.preventDefault(); // Prevent the default form submission if it's inside a form
+            searchMovie(); // Call the search function
+        }
+    });
 });
 
 function getRandomMovie() {
