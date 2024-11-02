@@ -17,6 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
             posterContainer.appendChild(button); // Append button to the poster container
             movieElement.appendChild(posterContainer); // Add poster container to movie element
 
+            posterContainer.onclick = () => {
+                resultPage(movie.id, movie.title);
+            };
+
             const title = document.createElement('h3');
             title.textContent = movie.title;
             movieElement.appendChild(title); // Add title to movie element
@@ -27,3 +31,17 @@ document.addEventListener('DOMContentLoaded', () => {
         resultsContainer.textContent = 'No results found.';
     }
 });
+
+function resultPage(movieId, movieTitle) {
+    console.log(movieTitle);
+    console.log(movieId);
+
+    fetch(`/movie-details?movie_id=${movieId}`) 
+        .then(response => response.json())
+        .then(data => {
+            localStorage.setItem('selectedMovieDetails', JSON.stringify(data));
+            localStorage.setItem('movieTitle', movieTitle);
+            window.location.href = 'result.html';
+        })
+        .catch(error => console.error('Error fetching result page:', error));
+}
