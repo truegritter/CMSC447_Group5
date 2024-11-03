@@ -39,12 +39,16 @@ def title_search():
 # Route /random
 @app.route("/random", methods=["GET"])
 def randomMovie():
-    randomIndex = random.randint(0, len(GENRES)-1)
-    randomID = GENRES[randomIndex]
-    randomYear = random.randint(1940, 2024)
-    url = f"https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&with_original_language=en&sort_by=popularity.desc&with_genres={randomID}&primary_release_year={randomYear}"
-    response = requests.get(url, headers=HEADERS)
-    return jsonify(response.json())
+    while True:
+        randomId = random.randint(2, 999999)
+        print(randomId)
+        url = f"https://api.themoviedb.org/3/movie/{randomId}?language=en-US"
+        response = requests.get(url, headers=HEADERS)
+
+        if response.status_code == 200:
+            movie_data = response.json()
+            if not movie_data.get("adult", False) and movie_data.get("poster_path"): # check that movie is not adult and that it has a poster
+                return jsonify(movie_data)
 
 @app.route("/movie-details", methods=["GET"])
 def movie_details(): 

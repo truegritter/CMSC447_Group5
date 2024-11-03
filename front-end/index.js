@@ -28,6 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
         button.onclick = () => getMoviesByGenre(genre.id, genre.name);
         genreButtonsContainer.appendChild(button);
     });
+
+
     
     // Add event listener for the Enter key in the search input
     const searchInput = document.getElementById('search');
@@ -39,11 +41,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-function getRandomMovie() {
-    fetch(`/random`)
+function getRandomMovie(movieId) {
+    fetch(`/random?movie_id=${movieId}`)
         .then(response => response.json())
         .then(data => {
-            localStorage.setItem('movieResults', JSON.stringify(data.results));
+            // Store the main movie details correctly in localStorage
+            localStorage.setItem('selectedMovieDetails', JSON.stringify(data));
+            // Redirect to the result page
             window.location.href = 'result.html';
         });
 }
