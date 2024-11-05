@@ -1,3 +1,5 @@
+console.log(JSON.parse(localStorage.getItem('selectedMovieDetails')));
+
 document.addEventListener('DOMContentLoaded', () => {
     const mainContainer = document.getElementById('movie-main');
     const relatedContainer = document.getElementById('related-movies');

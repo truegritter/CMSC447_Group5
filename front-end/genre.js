@@ -1,4 +1,7 @@
+console.log(JSON.parse(localStorage.getItem('movieResults')));
+
 document.addEventListener('DOMContentLoaded', () => {
+
     const resultsContainer = document.getElementById('Movie Details');
     const movieResults = JSON.parse(localStorage.getItem('movieResults'));
     const currentPage = parseInt(localStorage.getItem('currentPage')) || 1;
@@ -95,9 +98,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Fetch the results page
 function resultPage(movieId, movieTitle) {
-    console.log(movieTitle);
-    console.log(movieId);
-
     fetch(`/movie-details?movie_id=${movieId}`) 
         .then(response => response.json())
         .then(data => {

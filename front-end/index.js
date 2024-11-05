@@ -21,6 +21,7 @@ const genres = [
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
+
     const genreButtonsContainer = document.getElementById('genre-buttons');
     genres.forEach(genre => {
         const button = document.createElement('button');
@@ -49,7 +50,9 @@ function getRandomMovie(movieId) {
             localStorage.setItem('selectedMovieDetails', JSON.stringify(data));
             // Redirect to the result page
             window.location.href = 'result.html';
-        });
+        })
+        .catch(error => console.error('Error getting movies:', error));
+
 }
 
 function getMoviesByGenre(genreId, genreName) {
@@ -73,5 +76,7 @@ function searchMovie() {
         .then(data => {
             localStorage.setItem('movieResults', JSON.stringify(data.results));
             window.location.href = 'confirmation.html';
-        });
+        })
+        .catch(error => console.error('Error fetching movies:', error));
+
 }

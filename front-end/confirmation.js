@@ -1,3 +1,6 @@
+console.log(JSON.parse(localStorage.getItem('movieResults')));
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const resultsContainer = document.getElementById('Movie Details');
     const movieResults = JSON.parse(localStorage.getItem('movieResults'));
