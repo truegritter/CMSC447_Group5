@@ -42,7 +42,7 @@ def randomMovie():
     while True:
         randomId = random.randint(2, 999999)
         print(randomId)
-        url = f"https://api.themoviedb.org/3/movie/{randomId}?language=en-US"
+        url = f"https://api.themoviedb.org/3/movie/{randomId}?language=en-US&include_adult=false"
         response = requests.get(url, headers=HEADERS)
 
         if response.status_code == 200:
