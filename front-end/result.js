@@ -1,30 +1,3 @@
-// Fetch the results page
-function resultPage(movieId, movieTitle) {
-    fetch(`/movie-details?movie_id=${movieId}`)
-        .then(response => response.json())
-        .then(data => {
-            // Store the movie details and title
-            localStorage.setItem('selectedMovieDetails', JSON.stringify(data));
-            localStorage.setItem('movieTitle', movieTitle);
-
-            // Push the new state into the history stack
-            const state = {
-                movieId: movieId,
-                movieTitle: movieTitle
-            };
-            window.history.pushState(state, movieTitle, `?movie_id=${movieId}`);
-
-            // Redirect to the result page
-            window.location.href = 'result.html';
-        })
-        .catch(error => console.error('Error fetching result page:', error));
-}
-
-// Handle back button click
-function goBack() {
-    window.history.back(); // Navigate to the previous state in the history stack
-}
-
 document.addEventListener('DOMContentLoaded', () => {
     const mainContainer = document.getElementById('movie-main');
     const relatedContainer = document.getElementById('related-movies');
@@ -98,6 +71,33 @@ document.addEventListener('DOMContentLoaded', () => {
         relatedContainer.textContent = 'No related movies found.';
     }
 });
+
+// Fetch the results page
+function resultPage(movieId, movieTitle) {
+    fetch(`/movie-details?movie_id=${movieId}`)
+        .then(response => response.json())
+        .then(data => {
+            // Store the movie details and title
+            localStorage.setItem('selectedMovieDetails', JSON.stringify(data));
+            localStorage.setItem('movieTitle', movieTitle);
+
+            // Push the new state into the history stack
+            const state = {
+                movieId: movieId,
+                movieTitle: movieTitle
+            };
+            window.history.pushState(state, movieTitle, `?movie_id=${movieId}`);
+
+            // Redirect to the result page
+            window.location.href = 'result.html';
+        })
+        .catch(error => console.error('Error fetching result page:', error));
+}
+
+// Handle back button click
+function goBack() {
+    window.history.back(); // Navigate to the previous state in the history stack
+}
 
 // Handle state change when navigating through the history stack
 window.addEventListener('popstate', (event) => {
