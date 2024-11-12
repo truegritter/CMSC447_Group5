@@ -33,44 +33,60 @@ document.addEventListener('DOMContentLoaded', () => {
         // Append poster and title together in the main container
         mainContainer.appendChild(poster);
         mainContainer.appendChild(infoContainer);
+
+        // Fetch related movies (similar movies)
+        fetchRelatedMovies(mainMovieDetails.id);
+
     } else {
         mainContainer.textContent = 'No movie details found.';
     }
-
-    // Display related movies
-    const relatedMoviesContainer = relatedContainer.querySelector('.related-movies-container');
-
-    if (relatedMovies) {
-        relatedMovies.slice(0, 10).forEach(movie => {
-            const relatedItem = document.createElement('div');
-            relatedItem.classList.add('related-movie-item');
-
-            const relatedPosterButton = document.createElement('button'); // Create a button for the poster
-            relatedPosterButton.classList.add('related-movie-button'); // Add a class for styling
-            const relatedPoster = document.createElement('img');
-            relatedPoster.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
-            relatedPoster.alt = `${movie.title} Poster`;
-
-            const relatedTitle = document.createElement('h3');
-            relatedTitle.textContent = movie.title;
-
-            // Add event listener to the button to navigate to the result page for this movie
-            relatedPosterButton.addEventListener('click', () => {
-                resultPage(movie.id, movie.title); // Use the resultPage function to fetch details
-            });
-
-            // Append poster to the button, and button to the related movie item
-            relatedPosterButton.appendChild(relatedPoster);
-            relatedItem.appendChild(relatedPosterButton);
-            relatedItem.appendChild(relatedTitle);
-
-            // Append the related movie item to the container
-            relatedMoviesContainer.appendChild(relatedItem);
-        });
-    } else {
-        relatedContainer.textContent = 'No related movies found.';
-    }
 });
+
+// Fetch related movies (recommendations) from the backend
+function fetchRelatedMovies(movieId) {
+    fetch(`/movie-recommendations?movie_id=${movieId}`)
+        .then(response => response.json())
+        .then(data => {
+            const relatedMoviesContainer = document.getElementById('related-movies').querySelector('.related-movies-container');
+            relatedMoviesContainer.innerHTML = ''; // Clear any previous related movies
+
+            if (data.results && data.results.length > 0) {
+                // Display up to 10 related movies
+                data.results.slice(0, 10).forEach(movie => {
+                    const relatedItem = document.createElement('div');
+                    relatedItem.classList.add('related-movie-item');
+
+                    const relatedPosterButton = document.createElement('button'); // Create a button for the poster
+                    relatedPosterButton.classList.add('related-movie-button'); // Add a class for styling
+                    const relatedPoster = document.createElement('img');
+                    relatedPoster.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+                    relatedPoster.alt = `${movie.title} Poster`;
+
+                    const relatedTitle = document.createElement('h3');
+                    relatedTitle.textContent = movie.title;
+
+                    // Add event listener to the button to navigate to the result page for this movie
+                    relatedPosterButton.addEventListener('click', () => {
+                        resultPage(movie.id, movie.title); // Use the resultPage function to fetch details
+                    });
+
+                    // Append poster to the button, and button to the related movie item
+                    relatedPosterButton.appendChild(relatedPoster);
+                    relatedItem.appendChild(relatedPosterButton);
+                    relatedItem.appendChild(relatedTitle);
+
+                    // Append the related movie item to the container
+                    relatedMoviesContainer.appendChild(relatedItem);
+                });
+            } else {
+                relatedContainer.textContent = 'No related movies found.';
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching related movies:', error);
+            relatedContainer.textContent = 'Failed to load related movies.';
+        });
+}
 
 // Fetch the results page
 function resultPage(movieId, movieTitle) {
