@@ -61,7 +61,7 @@ def movie_details():
 @app.route("/movie-recommendations", methods=["GET"])
 def movie_recommendations():
     movie_id = request.args.get('movie_id')  # Get movie_id from query parameter
-    url = f"https://api.themoviedb.org/3/movie/{movie_id}/similar?language=en-US"
+    url = f"https://api.themoviedb.org/3/movie/{movie_id}/recommendations?language=en-US"
     response = requests.get(url, headers=HEADERS)
     return jsonify(response.json())
 
