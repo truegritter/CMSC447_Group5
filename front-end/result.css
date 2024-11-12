@@ -2,18 +2,33 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     background-color: #f0f0f0;
-}
-
-h1 {
-    font-size: 3em; /* Increase the size of the website name */
-    margin-bottom: 100px;
+    overflow-x: auto;
 }
 
 .container {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center items horizontally */
     height: auto; /* Adjust height to fit content */
+    width: 100%;
+}
+
+.back-button {
+    display: flex;
+    align-items: left;
+    top: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    font-size: 3em;
+    color: #007bff;
+    text-decoration: underline;
+    border: none;
+    cursor: pointer;
+}
+
+h1 {
+    font-size: 3em; /* Increase the size of the website name */
+    margin-bottom: 75px;
+    position: relative;
 }
 
 .movie-main {
@@ -22,31 +37,40 @@ h1 {
     justify-content: flex-start; /* Align items to the start horizontally */
 }
 
-
 .origin-movie-poster {
     width: 300px; /* Fixed width of the poster */
     height: auto; /* Fixed height of the poster */
     margin-bottom: 100px;
+    margin-left: 50px;
     border-radius: 10px; /* Rounded corners */
 }
 
 .origin-movie-info {
-    text-align: center; /* Center align text for title and description */
+    display: flex;
+    flex-direction: column;
 }
 
 .origin-movie-title {
-    font-size: 4em;
-    text-align: center; /* Space between title and poster */    
+    font-size: 3em;
+    text-align: left; /* Space between title and poster */    
     max-width: 700px; /* Limit width for better wrapping */
-    margin-left: 100px;
-    margin-top: 75px;
+    margin-left: 50px;
+    margin-bottom: 20px;
+    white-space: nowrap; /* Prevents wrapping of content */
+}
+
+.origin-movie-description {
+    font-size: 1.5em;
+    text-align: left; /* Space between description and poster */
+    max-width: 700px; /* Limit width for better wrapping */
+    margin-left: 50px;
 }
 
 .related-movies {
     display: flex;
     flex-direction: column; /* Stack title and movies vertically */
-    align-items: center;
     margin-top: 20px; /* Add space above related movies */
+    margin-left: 50px;
 }
 
 .related-movies-container {
@@ -59,7 +83,6 @@ h1 {
 .related-movie-item {
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 .related-movie-item img {
@@ -78,3 +101,16 @@ h1 {
     max-width: 250px; /* Ensure title fits within the container */
 }
 
+.related-movie-button {
+    width: 200px;
+    height: auto;
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+}
+.related-movie-button img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
