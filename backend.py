@@ -28,13 +28,18 @@ def genre_search():
     response = requests.get(url, headers=HEADERS)
     return jsonify(response.json())
 
+
 # Route /title-search?title={str}
 @app.route("/title-search", methods=["GET"])
 def title_search():
     title = request.args.get('title')
     url = f"https://api.themoviedb.org/3/search/movie?include_adult=false&original_language=en&query={title}"
     response = requests.get(url, headers=HEADERS)
-    return jsonify(response.json())
+    data = response.json()
+    # Filter out movies without a poster
+    filtered_results = [movie for movie in data['results'] if movie.get('poster_path')]
+    return jsonify({'results': filtered_results})
+
 
 @app.route("/random", methods=["GET"])
 def randomMovie():
@@ -77,6 +82,7 @@ def movie_details():
     response = requests.get(url, headers=HEADERS)
     return jsonify(response.json())
 
+
 # Route to get similar movies (Recommendations) based on a given movie_id
 @app.route("/movie-recommendations", methods=["GET"])
 def movie_recommendations():
@@ -96,7 +102,6 @@ def movie_recommendations():
         return jsonify({"results": recommendations_with_posters})
     else:
         return jsonify({"error": "Failed to retrieve movie recommendations from API."}), response.status_code
-
 
 
 # Run the app
