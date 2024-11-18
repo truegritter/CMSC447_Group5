@@ -108,7 +108,14 @@ h1 {
     background: none;
     padding: 0;
     cursor: pointer;
+    transition: transform 0.3s ease; /* Transition effect for hover */
+
 }
+
+.related-movie-button:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+
 .related-movie-button img {
     width: 100%;
     height: auto;
