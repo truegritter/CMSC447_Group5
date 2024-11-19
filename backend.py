@@ -50,7 +50,7 @@ def randomMovie():
         params = {
             "language": "en-US",
             "include_adult": "false",
-            "vote_count.gte": 100,  # Only movies with 500+ votes
+            "vote_count.gte": 100,  # Only movies with 100+ votes
             "page": random.randint(1, 500)  # Random page between 1 and 500 for variety
         }
 
