@@ -49,8 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Function to get a random movie
-function getRandomMovie(movieId) {
-    fetch(`/random?movie_id=${movieId}`)
+function getRandomMovie() {
+    fetch(`/random`)
         .then(response => response.json())
         .then(data => {
             // Store the main movie details correctly in localStorage

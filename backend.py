@@ -104,6 +104,50 @@ def movie_recommendations():
         return jsonify({"error": "Failed to retrieve movie recommendations from API."}), response.status_code
 
 
+# Route to get extra data for a movie based on the movie_id
+@app.route("/extra-data", methods=["GET"])
+def extra_data():
+    movie_id = request.args.get('movie_id')  # Get movie_id from query parameter
+    url = f"https://api.themoviedb.org/3/movie/{movie_id}?language=en-US&append_to_response=release_dates,credits"
+    respExtraData = requests.get(url, headers=HEADERS)
+
+    url = f"https://api.themoviedb.org/3/movie/{movie_id}/watch/providers"
+    respWatchProviders = requests.get(url, headers=HEADERS)
+
+    # Check if the API response is successful
+    if respExtraData.status_code == 200:
+        extraData = respExtraData.json()
+        watchProviders = respWatchProviders.json()
+        
+        # Extract the link for US watch providers
+        us_link = watchProviders.get('results', {}).get('US', {}).get('link', "No Options Available")
+        
+        # Extract US certifications
+        us_certifications = [
+            entry for entry in extraData.get('release_dates', {}).get('results', [])
+            if entry.get('iso_3166_1') == 'US'
+        ]
+        
+        # Extract first 5 actors
+        cast = extraData.get('credits', {}).get('cast', [])
+        first_5_actors = cast[:5]
+        
+        # Extract director, writer, and producer
+        crew = extraData.get('credits', {}).get('crew', [])
+        director = [member for member in crew if member.get('job') == 'Director']
+        writer = [member for member in crew if member.get('job') == 'Writer']
+        producer = [member for member in crew if member.get('job') == 'Producer']
+
+        # Return the combined data
+        return jsonify({
+            'us_certifications': us_certifications,
+            'first_5_actors': first_5_actors,
+            'director': director,
+            'writer': writer,
+            'producer': producer,
+            'us_watch_link': us_link
+        })
+
 # Run the app
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=8080)

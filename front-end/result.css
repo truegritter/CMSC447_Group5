@@ -27,7 +27,6 @@ body {
 
 h1 {
     font-size: 3em; /* Increase the size of the website name */
-    margin-bottom: 75px;
     position: relative;
 }
 
@@ -64,12 +63,13 @@ h1 {
     text-align: left; /* Space between description and poster */
     max-width: 700px; /* Limit width for better wrapping */
     margin-left: 50px;
+    margin-bottom: 20px;
 }
 
 .related-movies {
     display: flex;
     flex-direction: column; /* Stack title and movies vertically */
-    margin-top: 20px; /* Add space above related movies */
+    margin-top: -100px; /* Add space above related movies */
     margin-left: 50px;
 }
 
@@ -83,6 +83,8 @@ h1 {
 .related-movie-item {
     display: flex;
     flex-direction: column;
+    align-items: center; /* Center the items horizontally */
+    text-align: center; /* Center the text */
 }
 
 .related-movie-item img {

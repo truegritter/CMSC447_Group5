@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const mainContainer = document.getElementById('movie-main');
-    const relatedContainer = document.getElementById('related-movies');
 
     // Fetch main movie details from localStorage
     const mainMovieDetails = JSON.parse(localStorage.getItem('selectedMovieDetails'));
@@ -35,16 +34,114 @@ document.addEventListener('DOMContentLoaded', () => {
         infoContainer.appendChild(title);
         infoContainer.appendChild(description);
 
-        // Append poster and title together in the main container
+        // release date
+        const releaseDate = document.createElement('div');
+        const date = new Date(mainMovieDetails.release_date);
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        releaseDate.textContent = `Release Date: ${date.toLocaleDateString(undefined, options)}`;
+        releaseDate.classList.add('origin-movie-release-date');
+
+        // user votes
+        const userVotes = document.createElement('div');
+        userVotes.textContent = `User Vote Average: ${mainMovieDetails.vote_average} | Total Votes: ${mainMovieDetails.vote_count}`;
+        userVotes.classList.add('origin-movie-user-votes');
+
+        // Append new details to the info container
+        infoContainer.appendChild(releaseDate);
+        infoContainer.appendChild(userVotes);
+
+        // Fetch extra data for the movie
+        fetch(`/extra-data?movie_id=${mainMovieDetails.id}`)
+            .then(response => response.json())
+            .then(extraData => {
+                // Age rating
+                const ageRating = document.createElement('div');
+                const usCertification = extraData.us_certifications.find(cert => cert.iso_3166_1 === 'US');
+                if (usCertification && usCertification.release_dates.length > 0) {
+                    ageRating.textContent = `Rated: ${usCertification.release_dates[0].certification}`;
+                } else {
+                    ageRating.textContent = 'Rated: Not available';
+                }
+                ageRating.classList.add('origin-movie-age-rating');
+
+                // Director
+                const director = document.createElement('div');
+                if (extraData.director && extraData.director.length > 0) {
+                    director.textContent = `Director: ${extraData.director[0].name}`;
+                } else {
+                    director.textContent = 'Director: Not available';
+                }
+                director.classList.add('origin-movie-director');
+
+                // Writer
+                const writer = document.createElement('div');
+                if (extraData.writer && extraData.writer.length > 0) {
+                    const writerNames = extraData.writer.map(writer => writer.name).join(', ');
+                    writer.textContent = `Writers: ${writerNames}`;
+                } else {
+                    writer.textContent = 'Writers: Not available';
+                }
+                writer.classList.add('origin-movie-writers');
+
+                // Producer
+                const producer = document.createElement('div');
+                if (extraData.producer && extraData.producer.length > 0) {
+                    const producerNames = extraData.producer.map(producer => producer.name).join(', ');
+                    producer.textContent = `Producers: ${producerNames}`;
+                } else {
+                    producer.textContent = 'Producers: Not available';
+                }
+                producer.classList.add('origin-movie-producers');
+
+                infoContainer.appendChild(writer);
+                infoContainer.appendChild(producer);
+
+                // Actors
+                const actors = document.createElement('div');
+                if (extraData.first_5_actors && extraData.first_5_actors.length > 0) {
+                    const actorNames = extraData.first_5_actors.map(actor => actor.name).join(', ');
+                    actors.textContent = `Actors: ${actorNames}`;
+                } else {
+                    actors.textContent = 'Actors: Not available';
+                }
+                actors.classList.add('origin-movie-actors');
+                
+                // Streaming options
+                const streamingOptions = document.createElement('div');
+                if (extraData.us_watch_link) {
+                    const streamingLink = document.createElement('a');
+                    streamingLink.href = extraData.us_watch_link;
+                    streamingLink.textContent = 'Buy/Rent/Stream';
+                    streamingLink.target = '_blank'; // Open link in a new tab
+                    streamingOptions.appendChild(streamingLink);
+                } else {
+                    streamingOptions.textContent = 'Buy/Rent/Stream: No streaming options available.';
+                }
+                streamingOptions.classList.add('origin-movie-streaming-options');
+
+                // Append new details to the info container
+                infoContainer.appendChild(ageRating);
+                infoContainer.appendChild(director);
+                infoContainer.appendChild(writer);
+                infoContainer.appendChild(producer);
+                infoContainer.appendChild(actors);
+                infoContainer.appendChild(streamingOptions);
+            })
+            .catch(error => console.error('Error fetching extra data:', error));
+
+        // Append poster and infoContainer together in the main container
         mainContainer.appendChild(poster);
         mainContainer.appendChild(infoContainer);
 
         // Fetch related movies (similar movies)
         fetchRelatedMovies(mainMovieDetails.id);
 
-    } else {
+    } 
+    
+    else {
         mainContainer.textContent = 'No movie details found.';
     }
+
     // Dark Mode toggle button
     document.getElementById('darkModeToggle').addEventListener('click', toggleDarkMode);
 });
@@ -86,12 +183,12 @@ function fetchRelatedMovies(movieId) {
                     relatedMoviesContainer.appendChild(relatedItem);
                 });
             } else {
-                relatedContainer.textContent = 'No related movies found.';
+                relatedMoviesContainer.textContent = 'No related movies found.';
             }
         })
         .catch(error => {
             console.error('Error fetching related movies:', error);
-            relatedContainer.textContent = 'Failed to load related movies.';
+            relatedMoviesContainer.textContent = 'Failed to load related movies.';
         });
 }
 
