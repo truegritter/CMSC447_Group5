@@ -51,8 +51,7 @@ h1 {
 
 .origin-movie-title {
     font-size: 3em;
-    text-align: left; /* Space between title and poster */    
-    max-width: 700px; /* Limit width for better wrapping */
+    text-align: center; /* Center the text */
     margin-left: 50px;
     margin-bottom: 20px;
     white-space: nowrap; /* Prevents wrapping of content */
@@ -60,16 +59,21 @@ h1 {
 
 .origin-movie-description {
     font-size: 1.5em;
-    text-align: left; /* Space between description and poster */
-    max-width: 700px; /* Limit width for better wrapping */
+    text-align: center; /* Space between description and poster */
     margin-left: 50px;
     margin-bottom: 20px;
+}
+
+.origin-movie-etxra-info{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-left: 50px;
 }
 
 .related-movies {
     display: flex;
     flex-direction: column; /* Stack title and movies vertically */
-    margin-top: -100px; /* Add space above related movies */
     margin-left: 50px;
 }
 

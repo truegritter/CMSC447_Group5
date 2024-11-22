@@ -39,16 +39,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const date = new Date(mainMovieDetails.release_date);
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         releaseDate.textContent = `Release Date: ${date.toLocaleDateString(undefined, options)}`;
-        releaseDate.classList.add('origin-movie-release-date');
+        releaseDate.classList.add('origin-movie-etxra-info');
 
         // user votes
         const userVotes = document.createElement('div');
         userVotes.textContent = `User Vote Average: ${mainMovieDetails.vote_average} | Total Votes: ${mainMovieDetails.vote_count}`;
-        userVotes.classList.add('origin-movie-user-votes');
-
-        // Append new details to the info container
-        infoContainer.appendChild(releaseDate);
-        infoContainer.appendChild(userVotes);
+        userVotes.classList.add('origin-movie-etxra-info');
 
         // Fetch extra data for the movie
         fetch(`/extra-data?movie_id=${mainMovieDetails.id}`)
@@ -57,12 +53,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Age rating
                 const ageRating = document.createElement('div');
                 const usCertification = extraData.us_certifications.find(cert => cert.iso_3166_1 === 'US');
-                if (usCertification && usCertification.release_dates.length > 0) {
+                if (usCertification) {
                     ageRating.textContent = `Rated: ${usCertification.release_dates[0].certification}`;
                 } else {
                     ageRating.textContent = 'Rated: Not available';
                 }
-                ageRating.classList.add('origin-movie-age-rating');
+                ageRating.classList.add('origin-movie-etxra-info');
 
                 // Director
                 const director = document.createElement('div');
@@ -71,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     director.textContent = 'Director: Not available';
                 }
-                director.classList.add('origin-movie-director');
+                director.classList.add('origin-movie-etxra-info');
 
                 // Writer
                 const writer = document.createElement('div');
@@ -81,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     writer.textContent = 'Writers: Not available';
                 }
-                writer.classList.add('origin-movie-writers');
+                writer.classList.add('origin-movie-etxra-info');
 
                 // Producer
                 const producer = document.createElement('div');
@@ -91,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     producer.textContent = 'Producers: Not available';
                 }
-                producer.classList.add('origin-movie-producers');
+                producer.classList.add('origin-movie-etxra-info');
 
                 infoContainer.appendChild(writer);
                 infoContainer.appendChild(producer);
@@ -104,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     actors.textContent = 'Actors: Not available';
                 }
-                actors.classList.add('origin-movie-actors');
+                actors.classList.add('origin-movie-etxra-info');
                 
                 // Streaming options
                 const streamingOptions = document.createElement('div');
@@ -117,9 +113,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     streamingOptions.textContent = 'Buy/Rent/Stream: No streaming options available.';
                 }
-                streamingOptions.classList.add('origin-movie-streaming-options');
+                streamingOptions.classList.add('origin-movie-etxra-info');
 
-                // Append new details to the info container
+                // Append releaseDate and userVotes to the info container
+                infoContainer.appendChild(releaseDate);
+                infoContainer.appendChild(userVotes);
+               
+                // Append other extra details to the info container
                 infoContainer.appendChild(ageRating);
                 infoContainer.appendChild(director);
                 infoContainer.appendChild(writer);
