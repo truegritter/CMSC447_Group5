@@ -54,7 +54,6 @@ h1 {
     text-align: center; /* Center the text */
     margin-left: 50px;
     margin-bottom: 20px;
-    white-space: nowrap; /* Prevents wrapping of content */
 }
 
 .origin-movie-description {
